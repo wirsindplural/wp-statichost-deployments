@@ -11,6 +11,18 @@ if (!function_exists('statichost_deployments_get_options')) {
     }
 }
 
+if (!function_exists('statichost_deployments_get_site_url')) {
+    /**
+     * Return the webhook url
+     *
+     * @return string|null
+     */
+    function statichost_deployments_get_site_url() {
+        $options = statichost_deployments_get_options();
+        return isset($options['site_url']) ? $options['site_url'] : null;
+    }
+}
+
 if (!function_exists('statichost_deployments_get_site_name')) {
     /**
      * Return the webhook url

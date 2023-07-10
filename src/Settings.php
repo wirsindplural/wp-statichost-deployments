@@ -25,8 +25,6 @@ class Settings
 
         register_setting($key, $key, [__CLASS__, 'sanitize']);
         add_settings_section('general', __( 'General', 'wp-statichost-deployments'), '__return_empty_string', $key);
-        
-        // ...
 
         $option = statichost_deployments_get_options();
 
@@ -34,6 +32,12 @@ class Settings
             'name' => "{$key}[site_name]",
             'value' => statichost_deployments_get_site_name(),
             'description' => sprintf( __( 'Your statichost.eu site name, find it in your <a href="https://builder.statichost.eu" target="_blank" rel="noopener noreferrer">Dashboard</a>.') )
+        ]); 
+
+        add_settings_field('site_url', __( 'Site URL', 'wp-statichost-deployments' ), ['Wirsindplural\statichostDeployments\Field', 'text'], $key, 'general', [
+            'name' => "{$key}[site_url]",
+            'value' => statichost_deployments_get_site_url(),
+            'description' => sprintf( __( 'URL of your website.') )
         ]); 
     }
 

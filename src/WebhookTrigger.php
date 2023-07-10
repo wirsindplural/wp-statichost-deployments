@@ -37,32 +37,29 @@ class WebhookTrigger
 
         ?><style>
 
-        #wpadminbar .wp-statichost-deployments-button > a {
-            background-color: rgba(255, 255, 255, .2) !important;
-            color: #FFFFFF !important;
+        #wpadminbar .wp-statichost-deployments-site > .ab-item,
+        #wpadminbar .wp-statichost-deployments-button > .ab-item {
             display: flex;
             align-items: center;
         }
-        #wpadminbar .wp-statichost-deployments-button > a:hover,
-        #wpadminbar .wp-statichost-deployments-button > a:focus {
-            background-color: rgba(255, 255, 255, .25) !important;
+        
+        #wpadminbar .wp-statichost-deployments-button > .ab-item:hover svg * {
+            fill: #72aee6;
         }
 
         #wpadminbar .wp-statichost-deployments-button svg {
-            width: 12px;
-            height: 12px;
-            margin-left: 5px;
+            height: 1rem;
+            width: auto;
+            margin-left: .25rem
         }
 
-        #wpadminbar .wp-statichost-deployments-badge > .ab-item {
-            display: flex;
-            align-items: center;
+        #wpadminbar .wp-statichost-deployments-button svg * {
+            fill: #fff
         }
 
-        #wpadminbar .wp-statichost-deployments-button img {
+        #wpadminbar .wp-statichost-deployments-site img {
             height: 1.25rem;
             width: auto;
-            margin-left: .5rem;
         }
 
         </style><?php
@@ -99,8 +96,19 @@ class WebhookTrigger
     public static function adminBarTriggerButton($bar)
     {
         $bar->add_node([
-            'id' => 'wp-statichost-deployments',
-            'title' => 'Deploy Website <img src="' . statichost_deployments_get_badge_url() . ' " width="225" height="30" alt="statichost.eu status" />',
+            'id' => 'wp-statichost-deployments-site',
+            'title' => '<img src="/wp-content/plugins/wp-statichost-deployments/assets/loading.svg" width="220" height="30" alt="statichost.eu status" />',
+            'parent' => 'top-secondary',
+            'href' => statichost_deployments_get_site_url(),
+            'meta' => [
+                'target' => '_blank',
+                'class' => 'wp-statichost-deployments-site'
+            ]
+        ]);
+        
+        $bar->add_node([
+            'id' => 'wp-statichost-deployments-deploy',
+            'title' => 'Deploy Website <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="32" width="32"><path d="M12 0a12 12 0 1 0 12 12A12 12 0 0 0 12 0Zm4.91 10.41A1 1 0 0 1 16 11h-2.25a.25.25 0 0 0-.25.25v7.25a1.5 1.5 0 0 1-3 0v-7.25a.25.25 0 0 0-.25-.25H8a1 1 0 0 1-.75-1.66l4-4.5a1 1 0 0 1 1.5 0l4 4.5a1 1 0 0 1 .16 1.07Z" fill="#ffffff"></path></svg>',
             'parent' => 'top-secondary',
             'href' => 'javascript:void(0)',
             'meta' => [

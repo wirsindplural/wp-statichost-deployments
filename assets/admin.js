@@ -1,22 +1,22 @@
 ;(function ($, window, document, undefined) {
     $(function () {
-        var image = $('.wp-statichost-deployments-button img');
-        var imageSrc = image.prop('src');
-        var refreshTimout = null;
+        var image = $('.wp-statichost-deployments-button img')
+        var refreshTimout = null
         
         var updateNetlifyBadgeUrl = function () {
-            if (!image.length) {
-                return;
-            }
-            var d = new Date();
-            image.prop('src', imageSrc + '?v=s_' + d.getTime());
-            refreshTimout = setTimeout(updateNetlifyBadgeUrl, 4000);
+            $.get('/wp-content/plugins/wp-statichost-deployments/src/status.php')
+            .done(function (data) {
+                data = JSON.parse(data)
+                image.prop('src', '/wp-content/plugins/wp-statichost-deployments/assets/' + data.status + '.svg')
+                refreshTimout = setTimeout(updateNetlifyBadgeUrl, 4000)
+            })
         };
 
-        refreshTimout = setTimeout(updateNetlifyBadgeUrl, 4000);
+        updateNetlifyBadgeUrl();
 
         $('.wp-statichost-deployments-button').click(function (e) {
-            e.preventDefault();
+            e.preventDefault()
+
             $.ajax({
                 type: 'POST',
                 url: wpjd.ajaxurl,
@@ -29,4 +29,4 @@
         });
 
     });
-})(jQuery, window, document);
+})(jQuery, window, document)
