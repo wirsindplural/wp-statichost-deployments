@@ -1,6 +1,6 @@
 ;(function ($, window, document, undefined) {
     $(function () {
-        var image = $('.wp-statichost-deployments-button img')
+        var image = $('.wp-statichost-deployments-site img')
         var refreshTimout = null
         
         var updateNetlifyBadgeUrl = function () {
